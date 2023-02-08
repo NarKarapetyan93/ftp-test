@@ -1,0 +1,43 @@
+<script>
+    const sumEven = (numberToCheck) => {
+        try {
+            let sumOfDigits = 0;
+            let currentNumber = numberToCheck;
+
+            while(currentNumber > 0) {
+                sumOfDigits += currentNumber % 10; // Getting last digit and adding to sum
+                currentNumber = Math.floor(currentNumber / 10); // Getting next number without already added digit
+            }
+
+            return sumOfDigits % 2 === 0; 
+        } catch(e) {
+            console.log(e);
+        }
+    }
+
+    console.log(`Sum of digits of number 43: ${sumEven(43)}`);
+    console.log(`Sum of digits of number 33: ${sumEven(33)}`);
+    console.log(`Sum of digits of number 28: ${sumEven(28)}`);
+    console.log(`Sum of digits of number 16: ${sumEven(16)}`);
+
+    const timeAdjust = (timestamp, hrs, mins, secs) => {
+        try {
+            const [hour, minute, second] = timestamp.split(':');
+            
+            let currentDate = new Date(null, null, null, hour, minute, second);
+            let diff = (hrs * 3600) + (mins * 60) + secs;
+
+            const newDate = new Date(currentDate.getTime() + diff * 1000);
+            const newHour = newDate.getHours().toString().padStart(2, "0");
+            const newMinute = newDate.getMinutes().toString().padStart(2, "0");
+            const newSecond = newDate.getSeconds().toString().padStart(2, "0");
+            return `${newHour}:${newMinute}:${newSecond}`;
+        } catch(e) {
+            console.log(e);
+        }
+    }
+
+    console.log(timeAdjust("01:00:00", 1, 30, 10));
+    console.log(timeAdjust("18:22:30", 4, 60, 30));
+    console.log(timeAdjust("00:00:00", 72, 120, 120));
+</script>
