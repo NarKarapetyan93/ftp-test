@@ -1,6 +1,9 @@
 <script>
     const sumEven = (numberToCheck) => {
         try {
+            if(typeof numberToCheck !== 'number') {
+                throw new Error('Arguments should be a number');
+            }
             let sumOfDigits = 0;
             let currentNumber = numberToCheck;
 
@@ -22,9 +25,20 @@
 
     const timeAdjust = (timestamp, hrs, mins, secs) => {
         try {
+            if(typeof hrs !== 'number' || typeof mins !== 'number' || typeof secs !== 'number') {
+                throw new Error('Passed invalid argument: arguments should be numbers');
+            }
+
             const [hour, minute, second] = timestamp.split(':');
-            
             let currentDate = new Date(null, null, null, hour, minute, second);
+            if (Object.prototype.toString.call(currentDate) === "[object Date]") {
+                if (isNaN(currentDate)) {
+                    throw new Error('Invalid date')
+                }
+            } else {
+                throw new Error('Invalid timestamp');
+            }
+
             let diff = (hrs * 3600) + (mins * 60) + secs;
 
             const newDate = new Date(currentDate.getTime() + diff * 1000);
